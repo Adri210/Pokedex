@@ -7,6 +7,6 @@
 <style lang="scss" scoped>
 header {
   background-color: $pink-700;
-  height: 4rem;
+  height: 5rem;
 }
 </style>
