@@ -1,6 +1,6 @@
 <template>
   <div class="col col-lg-4 col-md-6 col-sm-12">
-    teste
+    {{ url }}
     <!-- <div class="card">
       <img
         :src="`https://raw.githubusercontent.com/PokeAPI//sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`"

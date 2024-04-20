@@ -1,14 +1,22 @@
-/* eslint-env node */
-require('@rushstack/eslint-patch/modern-module-resolution')
-
 module.exports = {
   root: true,
-  'extends': [
-    'plugin:vue/vue3-essential',
+  extends: [
     'eslint:recommended',
-    '@vue/eslint-config-prettier/skip-formatting'
+    'plugin:vue/vue3-strongly-recommended'
   ],
   parserOptions: {
-    ecmaVersion: 'latest'
+    parser: 'vue-eslint-parser',
+    ecmaVersion: 'latest',
+    sourceType: 'module'
+  },
+  plugins: [
+    'vue'
+  ],
+  rules: {
+    semi: ['error', 'always'],
+    quotes: ['error', 'single'],
+    indent: ['error', 2],
+    'comma-spacing': ['error', { before: false, after: true }],
+    'vue/no-multi-spaces': 0
   }
-}
+};
