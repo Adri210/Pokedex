@@ -1,11 +1,50 @@
 <template>
-  <h1 class="ms-5">
-    Pokemons
-  </h1>
+
+  <HeaderComponent />
+  
+  <main>
+    <div class="m-auto w-75 h-100 bg-white">
+      <div ref="pokemonList" class="cards-container h-100 row p-4">
+        <PokemonCard
+          v-for="pokemon in pokemons"
+          :key="pokemon.id"
+          :url="pokemon.url" 
+        />
+      </div>
+    </div>
+  </main>
 </template>
 
+<script setup>
+import { onMounted, ref } from 'vue'
+import { pokeapi } from '@/axios';
+import HeaderComponent from '@/components/HeaderComponent.vue';
+import PokemonCard from '../components/PokemonCard.vue';
+  const pokemons = ref([]);
+
+  onMounted(async () => {
+    const response = await pokeapi.get("/pokemon");
+
+    pokemons.value = response.data.results.map(pokemon => {
+      const id = parseInt(pokemon.url.match(/\/(\d+)\/$/)[1]);
+      return {
+        ...pokemon,
+        id
+      }
+    });
+  })
+</script>                               
+
 <style lang="scss" scoped>
- h1 {
-  color: $pink-700;
- }
+main {
+  background-color: $pink-700;
+  height: calc(100vh - 4rem);
+}
+
+.cards-container {
+  overflow-y: scroll;
+  list-style: none;
+}
+
+
 </style>
