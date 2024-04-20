@@ -25,19 +25,14 @@ import PokemonCard from '../components/PokemonCard.vue';
   onMounted(async () => {
     const response = await pokeapi.get("/pokemon");
 
-    pokemons.value = response.data.results.map(pokemon => {
-      const id = parseInt(pokemon.url.match(/\/(\d+)\/$/)[1]);
-      return {
-        ...pokemon,
-        id
-      }
-    });
+    pokemons.value = response.data.results;
   })
 </script>                               
 
 <style lang="scss" scoped>
 main {
   background-color: $pink-700;
+  overflow: hidden;
   height: calc(100vh - 4rem);
 }
 
@@ -46,5 +41,9 @@ main {
   list-style: none;
 }
 
-
+@media(max-width: 720px) {
+  .bg-white {
+    width: 100% !important;
+  }
+}
 </style>

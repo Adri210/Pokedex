@@ -7,8 +7,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:unit": "vitest",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix",
-    "format": "prettier --write src/",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --ignore-path .gitignore --fix src",
+    "format": "prettier . --write",
     "sass": "node-sass -w scss/ -o dist/css --recursive"
   },
   "dependencies": {
