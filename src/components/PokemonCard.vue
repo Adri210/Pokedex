@@ -1,9 +1,9 @@
 <script setup>
-  import { onMounted, ref } from 'vue'
+  import { onMounted, ref, defineProps } from 'vue'
   import { getPokemonDetails } from '@/axios';
   import { getCardColors } from '@/utils/cardColors.js';
   import { getBadgeType } from '@/utils/badgeTypes.js';
-import { RouterLink } from 'vue-router';
+  import { RouterLink } from 'vue-router';
 
   const props = defineProps({
     url: { type: String, required: true },
