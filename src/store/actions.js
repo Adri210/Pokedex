@@ -1,19 +1,21 @@
 import { getPokemons, getTypesAndPokemonsByType } from '@/axios';
 
 export default {
-  async loadPokemons({ commit, getters }) {
+  async loadPokemons({ commit, getters }, nameOrId = '') {
     commit('startLoadingFlag', 'allPokemons');
     commit('setPokemons', []);
     commit('resetFilters');
+    if (nameOrId) commit('setActiveFilter', { filter: nameOrId, flag: 'nameOrId' });
 
     const { offset, limit } = getters.getPokemonsPagination;
 
     try {
-      const pokemons = await getPokemons(offset, limit);
+      const pokemons = await getPokemons(offset, limit, nameOrId);
 
       commit('setPokemons', pokemons);
-    } catch (error) {
-      console.log(error);
+    } catch {
+      console.log('Entrou no catch');
+      commit('setPokemons', []);
     } finally {
       commit('stopLoadingFlag', 'allPokemons');
     }
@@ -54,6 +56,7 @@ export default {
   async filterPokemonByType({ commit }, type) {
     commit('startLoadingFlag', 'allPokemons');
     commit('setPokemons', []);
+    commit('resetFilters');
     commit('setActiveFilter', { filter: type, flag: 'type' });
 
     try {

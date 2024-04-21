@@ -4,10 +4,22 @@ export const pokeapi = axios.create({
   baseURL: 'https://pokeapi.co/api/v2'
 });
 
-export const getPokemons = async (pokemonsToSkip, pokemonsToShow) => {
-  const response = await pokeapi.get(`/pokemon?offset=${pokemonsToSkip}&limit=${pokemonsToShow}`);
+export const getPokemons = async (pokemonsToSkip, pokemonsToShow, nameOrId = '') => {
+  
+  if (!nameOrId) {
+    const response = await pokeapi.get(`/pokemon?offset=${pokemonsToSkip}&limit=${pokemonsToShow}`);
+  
+    return response.data.results;
+  }
 
-  return response.data.results;
+  const response = await pokeapi.get(`/pokemon/${nameOrId}`);
+
+  return [
+    {
+      name: response.data.name,
+      url: `https://pokeapi.co/api/v2/pokemon/${response.data.id}/`
+    }
+  ]
 }
 
 export const getPokemonDetails = async (url) => {

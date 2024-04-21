@@ -33,10 +33,16 @@
 
     <img
       v-if="loadingFlags.allPokemons"
-      src="@/assets/images/pokeball-loading.gif"
+      src="@/assets/images/gifs/pokeball-loading.gif"
       alt="Pokeball loading"
       class="pokeball-loading"
     />
+
+    <div v-else-if="!pokemons.length" class="d-flex flex-column align-items-center">
+      <img class="slowpoke-pokemon mb-4" src="@/assets/images/gifs/slowpoke.gif" alt="Slowpoke Pokémon">
+      <h3>Nenhum Pokémon encontrado ;-;</h3>
+      <h4>tente uma nova pesquisa</h4>
+    </div>
 
     <template v-else>
       <PokemonCard
@@ -53,7 +59,7 @@
     >
       <img
         class="pikachu-loading"
-        src="@/assets/images/pikachu-loading.gif"
+        src="@/assets/images/gifs/pikachu-loading.gif"
       />
     </div>
   </section>
@@ -75,6 +81,10 @@
 
   .pokeball-loading {
     width: 40rem;
+  }
+
+  .slowpoke-pokemon {
+    height: 15rem;
   }
 
   @media(max-width: 720px) {
