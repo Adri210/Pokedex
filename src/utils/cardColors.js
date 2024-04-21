@@ -1,8 +1,8 @@
 const pokemonTypes = {
   normal: '#5c5c5c',
-  fire: '#f08030',
-  water: '#457af7',
-  electric: '#F9BE00',
+  fire: '#FFA64C',
+  water: '#63BBF2',
+  electric: '#F2B84B',
   grass: '#48D0B0',
   ice: '#77d2f7',
   fighting: '#c03028',

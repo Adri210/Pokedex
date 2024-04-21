@@ -2,24 +2,29 @@
   import { onMounted, ref } from 'vue'
   import { getPokemonDetails } from '@/axios';
   import { getCardColors } from '@/utils/cardColors.js';
+  import { getBadgeType } from '@/utils/badgeTypes.js';
+import { RouterLink } from 'vue-router';
 
   const props = defineProps({
     url: { type: String, required: true },
   })
 
   const cardColor = ref('');
-
   const pokemon = ref({});
+  const badges = ref([]);
   
   onMounted(async () => {
     pokemon.value = await getPokemonDetails(props.url);
     cardColor.value = getCardColors(pokemon.value.types[0].type.name);
+    badges.value = pokemon.value.types.map((type) => {
+      return getBadgeType(type.type.name);
+    })
   });
 </script>
 
 <template>
-  <div class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
-    <div
+  <div :to="`/pokemons/${pokemon.id}`" class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+    <RouterLink :to="`/pokemons/${pokemon.id}`"
       class="card rounded-4"
       :style="[
         `border-color: ${cardColor}`,
@@ -27,16 +32,27 @@
       ]"
     >
       <div
-        class="h-100 w-100 d-flex flex-column align-items-center justify-content-between p-4"
+        class="h-100 d-flex flex-column align-items-center justify-content-end p-4"
       >
         <img
-          class=" align-self-center"
+          class="pokemon-sprite align-self-center mb-3"
           :src="`https://raw.githubusercontent.com/PokeAPI//sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`"
           :alt="`Pókemon ${pokemon.name}`"
         >
-        <p class="m-0">{{ pokemon.name }}</p>
+        <div class="d-flex gap-4 mb-3">
+          <img
+            v-for="badge in badges"
+            :key="badge"
+            :src="badge"
+            alt="badge"
+          />
+        </div>
+        <h2 class="m-0">
+          <span>#{{ pokemon.id }}</span>
+          {{ pokemon.name }}
+        </h2>
       </div>                                                                                                          
-    </div>
+    </RouterLink>
   </div>
 </template>
 
@@ -47,10 +63,33 @@
 
 .card {
   height: 93%;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 32px 64px;
 
-  img {
+  .pokemon-sprite {
     max-height: 12rem;
     max-width: 10rem;
+    bottom: 30%;   
+    position: absolute;
+    transition: bottom 0.3s ease-in-out;
   }
+
+  &:hover {
+    .pokemon-sprite {
+      bottom: 45%;
+    }
+  }
+}
+ 
+h2 {
+  font-weight: 700;
+  text-transform: capitalize;
+
+  span {
+    font-weight: 400;
+  }
+}
+
+a {
+  text-decoration: none;
 }
 </style>

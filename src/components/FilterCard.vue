@@ -11,8 +11,8 @@
 </script>
 
 <template>
-  <div class="col-12 pe-4 ps-0">
-    <div class="card ps-0 mb-4 rounded-4">
+  <div class="col-12 mb-4">
+    <div class="card rounded-4">
       <div class="w-100 h-100 p-4 pt-0 d-flex flex-column align-items-center">
         <div class="d-flex align-items-center justify-content-center ps-5">
           <h2 class="m-0">Filtre seu Pokémon</h2>
@@ -27,7 +27,7 @@
           >
             {{ selectedFilter }}
           </button>
-
+  
           <ul class="dropdown-menu">
             <li
               v-for="filter in filterOptions"
@@ -39,7 +39,7 @@
               </a>
             </li>
           </ul>
-
+  
           <input
             type="text"
             class="form-control"

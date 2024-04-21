@@ -37,7 +37,7 @@
     async () => {
       await getPokemonsOnScroll();
     },
-    { distance: 10 }
+    { distance: 5 }
   )
 
   const toggleFilter = (filter) => {
@@ -51,29 +51,30 @@
   <main class="d-flex">
     <AsideComponent />
 
-    <div class="row m-auto w-75 h-100 bg-white rounded-top-4 py-4 ps-4">
+    <section
+      ref="pokemonListEl"
+      class="cards-container h-100 row m-auto w-75 bg-white rounded-top-4 py-4 px-3"
+    >
       <FilterCard
         :selectedFilter="selectedFilter"
         @select-filter="toggleFilter"
       />
+      <PokemonCard
+        v-for="(pokemon, index) in pokemons"
+        :key="`${pokemon.name}-${index}`"
+        :url="pokemon.url" 
+      />
 
-      <section
-        ref="pokemonListEl"
-        class="cards-container row col-12 h-100 p-0"
+      <div
+        class="col-12 d-flex justify-content-center"
+        v-show="loading"
       >
-        <PokemonCard
-          v-for="(pokemon, index) in pokemons"
-          :key="`${pokemon.name}-${index}`"
-          :url="pokemon.url" 
-        />
-  
         <img
-          class="loading m-auto d-block"
+          class="loading"
           src="@/assets/images/pikachu-loading.gif"
-          v-show="loading"
         />
-      </section>
-    </div>
+      </div>
+    </section>
     
     <AsideComponent />
   </main>
@@ -83,7 +84,7 @@
   main {
     height: calc(100vh - 5rem);
     background-color: $pink-700;
-    overflow: hidden;
+    // overflow: hidden;
   }
 
   .cards-container {
