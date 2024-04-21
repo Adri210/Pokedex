@@ -4,10 +4,6 @@
   const props = defineProps({
     selectedFilter: { type: String, required: true },
   });
-
-  const emit = defineEmits(['select-filter']);
-
-  const filterOptions = ref(['Nome', 'Id', 'Tipo', 'Espécie']);
 </script>
 
 <template>
@@ -15,36 +11,27 @@
     <div class="card rounded-4">
       <div class="w-100 h-100 p-4 pt-0 d-flex flex-column align-items-center">
         <div class="d-flex align-items-center justify-content-center ps-5">
-          <h2 class="m-0">Filtre seu Pokémon</h2>
+          <h2 class="m-0">Encontre seu Pokémon</h2>
           <img src="@/assets/images/pokebola.gif" alt="Pokebola" class="pokebola">
         </div>
-        <div class="input-group w-50">
-          <button
-            class="btn btn-outline-secondary dropdown-toggle fw-medium"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            {{ selectedFilter }}
-          </button>
-  
-          <ul class="dropdown-menu">
-            <li
-              v-for="filter in filterOptions"
-              :key="filter"
-              @click="emit('select-filter', filter)"
-            >
-              <a class="dropdown-item" href="#">
-                {{ filter }}
-              </a>
-            </li>
-          </ul>
-  
-          <input
-            type="text"
-            class="form-control"
-            aria-label="Text input with dropdown button"
-          />
+
+        <div class="form w-100 d-flex justify-content-between align-items-center gap-4">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Nome completo ou ID"
+              aria-label="Text input with dropdown button"
+            />
+            <button class="btn">Pesquisar</button>
+          </div>
+
+          <select class="form-select" aria-label="Default select example">
+            <option selected value="all">Tipo</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
         </div>
       </div>
     </div>
@@ -67,6 +54,7 @@
 
     &:hover, &:focus {
       background-color: $blue-400;
+      color: white;
     }
   }
 
@@ -83,6 +71,18 @@
 
     h2 {
       font-size: 1.2rem;
+    }
+
+    .pokebola {
+      width: 5rem;
+    }
+
+    .form {
+      flex-direction: column;
+      
+      input, select, .btn {
+        font-size: 0.875rem;
+      }
     }
   }
 </style>

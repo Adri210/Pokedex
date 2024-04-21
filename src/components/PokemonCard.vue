@@ -23,7 +23,7 @@
 </script>
 
 <template>
-  <div :to="`/pokemons/${pokemon.id}`" class="col col-xl-3 col-lg-4 col-md-6 col-sm-12">
+  <div :to="`/pokemons/${pokemon.id}`" class="col col-12 col-xl-3 col-lg-6">
     <RouterLink :to="`/pokemons/${pokemon.id}`"
       class="card rounded-4"
       :style="[
