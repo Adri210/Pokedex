@@ -1,8 +1,21 @@
 <script setup>
-  import { ref, defineProps, defineEmits } from 'vue';
+  import { computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
 
-  const props = defineProps({
-    selectedFilter: { type: String, required: true },
+  const { dispatch, getters } = useStore();
+  const types = computed(() => getters['getTypes']);
+
+  const filterByType = async (type) => {
+    if (type === '') {
+      await dispatch('loadPokemons');
+      return;
+    }
+    
+    await dispatch('filterPokemonByType', type);
+  };
+
+  onMounted(async () => {
+    await dispatch('loadTypes');
   });
 </script>
 
@@ -26,11 +39,19 @@
             <button class="btn">Pesquisar</button>
           </div>
 
-          <select class="form-select" aria-label="Default select example">
-            <option selected value="all">Tipo</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            @change="filterByType($event.target.value)"
+          >
+            <option selected value="">Tipo</option>
+            <option
+              v-for="type in types"
+              :key="type.name"
+              :value="type.name"
+            >
+              {{ type.name }}
+            </option>
           </select>
         </div>
       </div>

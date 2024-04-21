@@ -1,62 +1,58 @@
 <script setup>
-  import { onMounted, ref } from 'vue'
-  import { useInfiniteScroll } from '@vueuse/core'
-  import { getPokemons } from '@/axios';
+  import { computed, onMounted, ref } from 'vue';
+  import { useInfiniteScroll } from '@vueuse/core';
+  import { useStore } from 'vuex';
   import PokemonCard from '@/components/PokemonCard.vue';
   import FilterCard from '@/components/FilterCard.vue';
   
-  const pokemonsToShow = 20;
+  const { dispatch, getters } = useStore();
+
   const pokemonListEl = ref(null);
-  const pokemons = ref([]);
-  const loading = ref(false);
+  const pokemons = computed(() => getters['getPokemons']);
+  const loadingFlags = computed(() => getters['getLoadingFlags']);
 
   onMounted(async () => {
-    pokemons.value = await getPokemons(0, pokemonsToShow);
+    await dispatch('loadPokemons');
   })
-
-  const getPokemonsOnScroll = async () => {
-    loading.value = true;
-    await new Promise((res) => setTimeout(res, 1000));
-
-    try {
-      const morePokemons = await getPokemons(pokemons.value.length, pokemonsToShow);
-
-      pokemons.value.push(...morePokemons);
-    } catch(error) {
-      console.log(error);
-    } finally {
-      loading.value = false;
-    }
-  }
 
   useInfiniteScroll(
     pokemonListEl,
     async () => {
-      await getPokemonsOnScroll();
+      await dispatch('loadPokemonsOnScroll');
     },
     { distance: 5 }
-  )
+  );
 </script>
-
 
 <template>
   <section
     ref="pokemonListEl"
-    class="cards-container h-100 row m-auto w-75 bg-white rounded-top-4 py-4 px-3"
+    class="cards-container h-100 row m-auto w-75 bg-white rounded-top-4 py-4 px-3 justify-content-center"
   >
     <FilterCard />
-    <PokemonCard
-      v-for="(pokemon, index) in pokemons"
-      :key="`${pokemon.name}-${index}`"
-      :url="pokemon.url" 
+
+    <img
+      v-if="loadingFlags.allPokemons"
+      src="@/assets/images/pokeball-loading.gif"
+      alt="Pokeball loading"
+      class="pokeball-loading"
     />
+
+    <template v-else>
+      <PokemonCard
+        v-for="(pokemon, index) in pokemons"
+        :key="`${pokemon.name}-${index}`"
+        :url="pokemon.url" 
+      />
+    </template>
+
 
     <div
       class="col-12 d-flex justify-content-center"
-      v-show="loading"
+      v-if="loadingFlags.morePokemons"
     >
       <img
-        class="loading"
+        class="pikachu-loading"
         src="@/assets/images/pikachu-loading.gif"
       />
     </div>
@@ -73,8 +69,12 @@
     }
   }
 
-  .loading {
+  .pikachu-loading {
     width: 10rem;
+  }
+
+  .pokeball-loading {
+    width: 40rem;
   }
 
   @media(max-width: 720px) {

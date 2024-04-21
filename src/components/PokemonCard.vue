@@ -34,10 +34,10 @@
       <div
         class="h-100 d-flex flex-column align-items-center justify-content-end p-4"
       >
-        <img
-          class="pokemon-sprite align-self-center mb-3"
-          :src="`https://raw.githubusercontent.com/PokeAPI//sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`"
-          :alt="`Pókemon ${pokemon.name}`"
+      <img
+      class="pokemon-sprite align-self-center mb-3"
+      :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`"
+      :alt="`Pókemon ${pokemon.name}`"
         >
         <div class="d-flex gap-4 mb-3">
           <img
@@ -48,9 +48,9 @@
           />
         </div>
         <h2 class="m-0">
-          <span>#{{ pokemon.id }}</span>
           {{ pokemon.name }}
         </h2>
+        <span>#{{ pokemon.id }}</span>
       </div>                                                                                                          
     </RouterLink>
   </div>
@@ -66,9 +66,9 @@
   box-shadow: rgba(0, 0, 0, 0.07) 0px 32px 64px;
 
   .pokemon-sprite {
-    max-height: 12rem;
-    max-width: 10rem;
-    bottom: 30%;   
+    height: 10rem;
+    max-width: 20rem;
+    bottom: 35%;   
     position: absolute;
     transition: bottom 0.3s ease-in-out;
   }
