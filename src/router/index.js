@@ -20,11 +20,11 @@ const router = createRouter({
       name: 'Pokemon Details',
       component: PokemonDetailsView
     },
-    {
-      path: '/:pathMatch(.*)',
-      name: 'NotFound',
-      component: NotFoundView
-    }
+    // {
+    //   path: '/:pathMatch(.*)',
+    //   name: 'NotFound',
+    //   component: NotFoundView
+    // }
   ]
 })
 
