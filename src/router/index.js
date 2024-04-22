@@ -9,15 +9,15 @@ const router = createRouter({
     {
       path: '/',
       // redirect: '/pokemons',
-      name: 'Pokemons',
+      name: 'pokemons',
       component: PokemonsView
     },
     // {
     //   path: '/pokemons',
     // },
     {
-      path: '/pokemons/:id',
-      name: 'Pokemon Details',
+      path: '/:id',
+      name: 'pokemon-details',
       component: PokemonDetailsView
     },
     // {
