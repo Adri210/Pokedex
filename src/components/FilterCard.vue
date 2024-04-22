@@ -17,7 +17,7 @@ import { useStore } from 'vuex';
   };
 
   const filterByNameOrId = async () => {
-    await dispatch('loadPokemons', nameOrIdFilter.value);
+    await dispatch('loadPokemons', nameOrIdFilter.value.toLowerCase());
     nameOrIdFilter.value = '';
     selectedType.value = '';
   }
