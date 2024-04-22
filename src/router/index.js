@@ -8,13 +8,13 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/pokemons',
-    },
-    {
-      path: '/pokemons',
+      // redirect: '/pokemons',
       name: 'Pokemons',
       component: PokemonsView
     },
+    // {
+    //   path: '/pokemons',
+    // },
     {
       path: '/pokemons/:id',
       name: 'Pokemon Details',

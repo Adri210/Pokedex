@@ -38,7 +38,7 @@
       `backgroundColor: ${cardColor}`
     ]"
   >
-    <RouterLink to="/pokemons" class="back-btn btn position-absolute d-flex justify-content-center align-items-center">
+    <RouterLink to="/" class="back-btn btn position-absolute d-flex justify-content-center align-items-center">
       <img src="@/assets/images/icons/chevron-left.svg" alt="icon" class="w-50">
     </RouterLink>
 
@@ -58,7 +58,7 @@
     />
 
     <PokemonEvolutions />
-    
+
     <PokemonMoves
       :moves="pokemon?.moves"
       :cardColor="cardColor"
