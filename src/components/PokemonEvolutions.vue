@@ -7,27 +7,31 @@
 </script>
 
 <template>
-  <h1 class="text-center mt-4 mb-4 evolution-title">Evolutions</h1>
-    <div class="evolution-container col-12 d-flex justify-content-center gap-5">
-      <template v-for="(evolution, index) in evolutions" :key="evolution.id">
-        <div
-          class="evolution-card d-flex flex-column justify-content-center gap-2 align-items-center"
-        >
-          <img
-            :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${evolution.id}.png`"
-            alt="Evolution"
-            class="evolution-img w-50"
-          >
-          <p class="m-0">{{ evolution.name }}</p>
+  <div class="col col-12 mt-5">
+    <div class="card bg-transparent border-0 d-flex flex-column p-4">
+      <h1 class="text-center mb-4 evolution-title">Evolutions</h1>
+        <div class="evolution-container d-flex justify-content-center gap-5">
+          <template v-for="(evolution, index) in evolutions" :key="evolution.id">
+            <div
+              class="evolution-card d-flex flex-column justify-content-center gap-2 align-items-center"
+            >
+              <img
+                :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${evolution.id}.png`"
+                alt="Evolution"
+                class="evolution-img w-50"
+              >
+              <p class="m-0">{{ evolution.name }}</p>
+            </div>
+    
+            <img
+              v-if="index < evolutions.length - 1"
+              class="arrow-svg" src="@/assets/images/icons/arrow-right.svg"
+              alt="Flecha para a direita"
+            />
+          </template>
         </div>
-
-        <img
-          v-if="index < evolutions.length - 1"
-          class="arrow-svg" src="@/assets/images/icons/arrow-right.svg"
-          alt="Flecha para a direita"
-        />
-      </template>
     </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -55,20 +59,12 @@
       align-items: center !important;
     }
     
+    .col {
+      margin-top: 10rem !important;
+    }
+
     .arrow-svg {
       rotate: 90deg;
-    }
-  }
-
-  @media(max-width: 400px) {
-    .evolution-title {
-      margin-top: 3rem !important;
-    }
-  }
-
-  @media(max-width: 360px) {
-    .evolution-title {
-      margin-top: 6rem !important;
     }
   }
 </style>
