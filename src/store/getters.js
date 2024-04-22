@@ -4,4 +4,6 @@ export default {
   getLoadingFlags: state => state.loadingFlags,
   getTypes: state => state.types,
   getActiveFilters: state => state.activeFilters,
+  getPokemon: state => state.pokemon,
+  getEvolutions: state => state.evolutions,
 }

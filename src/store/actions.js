@@ -1,4 +1,11 @@
-import { getPokemons, getTypesAndPokemonsByType } from '@/axios';
+import {
+  getPokemons,
+  getTypesAndPokemonsByType,
+  getPokemonById,
+  getPokemonSpecies,
+  getPokemonDetails
+} from '@/axios';
+import { extractEvolutionSpecies } from '@/utils/extractEvolutionSpecies.js';
 
 export default {
   async loadPokemons({ commit, getters }, nameOrId = '') {
@@ -67,6 +74,37 @@ export default {
       console.log(error);
     } finally {
       commit('stopLoadingFlag', 'allPokemons');
+    }
+  },
+
+  async loadPokemonById({ commit }, id) {
+    commit('startLoadingFlag', 'pokemonDetails');
+    commit('setPokemon', {})
+
+    try {
+      const pokemon = await getPokemonById(id);
+
+      commit('setPokemon', pokemon);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      commit('stopLoadingFlag', 'pokemonDetails');
+    }
+  },
+
+  async getPokemonEvolutions({ commit }, id) {
+    commit('startLoadingFlag', 'pokemonEvolutions');
+
+    try {
+      const pokemonSpecies = await getPokemonSpecies(id);
+      const evolutionChain = await getPokemonDetails(pokemonSpecies.evolution_chain.url);
+      const extractedEvolutions = extractEvolutionSpecies(evolutionChain);
+
+      commit('setEvolutions', extractedEvolutions);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      commit('stopLoadingFlag', 'pokemonEvolutions');
     }
   }
 }

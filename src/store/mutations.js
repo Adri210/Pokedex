@@ -28,5 +28,13 @@ export default {
       type: '',
       nameOrId: '',
     }
+  },
+
+  setPokemon(state, pokemon) {
+    state.pokemon = pokemon;
+  },
+
+  setEvolutions(state, evolutions) {
+    state.evolutions = evolutions;
   }
 }
