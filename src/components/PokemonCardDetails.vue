@@ -8,6 +8,7 @@
   import PokemonStats from './PokemonStats.vue';
   import PokemonEvolutions from './PokemonEvolutions.vue';
   import PokemonMoves from './PokemonMoves.vue';
+  import PokemonSprites from '../components/PokemonSprites.vue';
 
   const { getters } = useStore();
 
@@ -61,6 +62,10 @@
 
     <PokemonMoves
       :moves="pokemon?.moves"
+      :cardColor="cardColor"
+    />
+
+    <PokemonSprites
       :cardColor="cardColor"
     />
   </section>
